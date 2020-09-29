@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SVG } from '@svgdotjs/svg.js';
-import { init } from './fretboard';
+import { init, draw } from './fretboard';
 
 @Component({
   selector: 'app-root',
@@ -14,4 +14,15 @@ export class AppComponent implements OnInit {
     init('#canvas');
   }
 
+  major(): void {
+    draw('major');
+  }
+
+  minor(): void {
+    draw('minor');
+  }
+
+  pentaMinor(): void {
+    draw('pentaMinor');
+  }
 }
