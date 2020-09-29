@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SVG } from '@svgdotjs/svg.js';
+import { init } from './fretboard';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,7 @@ export class AppComponent implements OnInit {
   title = 'poc';
 
   ngOnInit(): void {
-    const draw = SVG().addTo('#canvas').size(400, 400);
-    const rect = draw.rect(100, 100);
+    init('#canvas');
   }
 
 }
