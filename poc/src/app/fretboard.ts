@@ -9,19 +9,19 @@ const pentaMinor = [0, 3, 5, 7, 10];
 
 const frets = 15;
 
-function value(i: number, j: number): number {
-  console.log(i, j, tuning[i - 1] + j);
-  return tuning[i - 1] + j;
+function value(s: number, f: number): number {
+  console.log(s, f, tuning[s - 1] + f);
+  return tuning[s - 1] + f;
 }
 
-function note_name(i: number, j: number): string {
-  const v = value(i, j) % 12;
+function note_name(s: number, f: number): string {
+  const v = value(s, f) % 12;
   console.log(v);
   return allNotes[v];
 }
 
-function id(i: number, j: number): string {
-  return 'S' + i + 'F' + j;
+function id(s: number, f: number): string {
+  return 'S' + s + 'F' + f;
 }
 
 
@@ -37,35 +37,31 @@ export function init(selector: string): void {
 
   const grid = canvas.group();
 
-  for (let i = 0; i <= frets; i++) {
-    const line = grid.line(0, 75, 0, 0).move(20 * i, 0).id('R' + i);
-    const w = i === 0 ? 2 : 0.5;
+  for (let f = 0; f <= frets; f++) {
+    const line = grid.line(0, 75, 0, 0).move(20 * f, 0).id('R' + f);
+    const w = f === 0 ? 2 : 0.5;
     line.stroke({ color: '#000000', width: w });
   }
 
-  for (let j = 1; j <= 6; j++) {
-    const line = grid.line(0, 0, frets * 20, 0).move(0, 75 - (j - 1) * 15).id('L' + j);
-    const factor = 1 - (j - 1) * 0.1;
+  for (let s = 1; s <= 6; s++) {
+    const line = grid.line(0, 0, frets * 20, 0).move(0, 75 - (s - 1) * 15).id('L' + s);
+    const factor = 1 - (s - 1) * 0.1;
     line.stroke({ color: '#000000', width: factor });
   }
 
   const notes = canvas.group();
-  for (let j = 1; j <= 6; j++) {
-    for (let i = 0; i <= frets; i++) {
-      const note = notes.group().id(id(j, i));
-
-      if ((i + j) % 2 === 0) {
-        // note.hide()
-      }
+  for (let s = 1; s <= 6; s++) {
+    for (let f = 0; f <= frets; f++) {
+      const note = notes.group().id(id(s, f));
       note.hide();
 
-      const circle = note.circle(10).move(-15 + 20 * i, -5 + 75 - (j - 1) * 15);
+      const circle = note.circle(10).move(-15 + 20 * f, -5 + 75 - (s - 1) * 15);
       circle.stroke({ color: '#000000', width: 0.5 });
       circle.fill({ color: '#cccccc' });
 
-      const name = note_name(j, i);
+      const name = note_name(s, f);
       const text = note.text(name);
-      text.move(-10 + 20 * i, 0.5 + 75 - (j - 1) * 15);
+      text.move(-10 + 20 * f, 0.5 + 75 - (s - 1) * 15);
       text.font({
         fill: '#000000', family: 'Inconsolata', anchor: 'middle', size: 6
       });
@@ -92,13 +88,13 @@ export function draw(scale: string): void {
       break;
   }
   const canvas = SVG('#canvas');
-  for (let j = 1; j <= 6; j++) {
-    for (let i = 0; i <= frets; i++) {
-      const v = value(j, i) % 12;
+  for (let s = 1; s <= 6; s++) {
+    for (let f = 0; f <= frets; f++) {
+      const v = value(s, f) % 12;
       if (formula.indexOf(v) >= 0) {
-        canvas.findOne('#' + id(j, i)).show();
+        canvas.findOne('#' + id(s, f)).show();
       } else {
-        canvas.findOne('#' + id(j, i)).hide();
+        canvas.findOne('#' + id(s, f)).hide();
       }
     }
   }
