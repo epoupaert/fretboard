@@ -1,9 +1,6 @@
 var tuning = [ 4, 9, 14, 19, 23, 28]
 //var all_notes = [ 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B' ]
 var all_notes = [ 'C', 'Dd', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B' ]
-var major = [ 0, 2, 4, 5, 7, 9, 11 ]
-var minor = [ 0, 2, 3, 5, 7, 8, 10 ]
-var penta_minor = [ 0, 3, 5, 7, 10 ]
 
 let frets = 15
 

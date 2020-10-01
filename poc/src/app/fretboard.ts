@@ -1,4 +1,5 @@
 import { SVG } from '@svgdotjs/svg.js';
+import { Scale } from './scales';
 
 const tuning = [4, 9, 14, 19, 23, 28];
 // var all_notes = [ 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B' ]
@@ -69,29 +70,12 @@ export function init(selector: string): void {
   }
 }
 
-export function draw(scale: string): void {
-  let formula: number[];
-  switch (scale) {
-    case 'major':
-      formula = major;
-      break;
-
-    case 'minor':
-      formula = minor;
-      break;
-
-    case 'pentaMinor':
-      formula = pentaMinor;
-      break;
-
-    default:
-      break;
-  }
+export function draw(scale: Scale): void {
   const canvas = SVG('#canvas');
   for (let s = 1; s <= 6; s++) {
     for (let f = 0; f <= frets; f++) {
       const v = value(s, f) % 12;
-      if (formula.indexOf(v) >= 0) {
+      if (scale.contains(v)) {
         canvas.findOne('#' + id(s, f)).show();
       } else {
         canvas.findOne('#' + id(s, f)).hide();

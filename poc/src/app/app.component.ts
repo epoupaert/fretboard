@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SVG } from '@svgdotjs/svg.js';
 import { init, draw } from './fretboard';
+import { Scale } from './scales';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +16,14 @@ export class AppComponent implements OnInit {
   }
 
   major(): void {
-    draw('major');
+    draw(Scale.named('major'));
   }
 
   minor(): void {
-    draw('minor');
+    draw(Scale.named('minor'));
   }
 
   pentaMinor(): void {
-    draw('pentaMinor');
+    draw(Scale.named('pentaMinor'));
   }
 }
