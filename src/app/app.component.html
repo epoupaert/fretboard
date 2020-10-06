@@ -9,8 +9,9 @@
   </div>
   <br>
   <div class="btn-group" role="group">
-    <button (click)="key(12-3)" type="button" class="btn btn-primary">A</button>
-    <button (click)="key(0)" type="button" class="btn btn-primary">C</button>
-    <button (click)="key(4)" type="button" class="btn btn-primary">E</button>
+    <button
+      *ngFor="let key of keys()"
+      (click)="onKey(key.value)" type="button" class="btn btn-primary"
+      >{{key.name}}</button>
   </div>
 </div>

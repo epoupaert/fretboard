@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SVG } from '@svgdotjs/svg.js';
-import { init, draw } from './fretboard';
+import { init, draw, keys, accidentals } from './fretboard';
 import { Scale } from './scales';
 
 @Component({
@@ -27,7 +27,11 @@ export class AppComponent implements OnInit {
     draw(Scale.named('pentaMinor'));
   }
 
-  key(k: number): void {
+  onKey(k: number): void {
     draw(Scale.inKey(k));
+  }
+
+  keys(): { name: string, value: number }[] {
+    return keys;
   }
 }
