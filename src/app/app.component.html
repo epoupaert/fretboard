@@ -7,18 +7,32 @@
     <button (click)="minor()"type="button" class="btn btn-primary">Minor</button>
     <button (click)="pentaMinor()"type="button" class="btn btn-primary">Penta minor</button>
   </div>
+
   <br>
-  <div class="btn-group" role="group">
-    <button
+
+  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
+    [ngModel]="key"
+    (ngModelChange)="onKey($event)"
+    >
+    <label
       *ngFor="let key of keys()"
-      (click)="onKey(key.value)" type="button" class="btn btn-primary"
-      >{{key.name}}</button>
+      ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" [value]="key.value">{{key.name}}
+    </label>
   </div>
+
   <br>
-  <div class="btn-group" role="group">
-    <button
+
+  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
+    [ngModel]="accidental"
+    (ngModelChange)="onAccidental($event)"
+    >
+    <label
       *ngFor="let accidental of accidentals()"
-      (click)="onAccidental(accidental.value)" type="button" class="btn btn-primary"
-      >{{accidental.name}}</button>
+      ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" [value]="accidental.value">{{accidental.name}}
+    </label>
   </div>
+
+  <hr>
 </div>

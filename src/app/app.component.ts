@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     init('#canvas');
+    draw(Scale.inKey(this.key + this.accidental));
   }
 
   major(): void {

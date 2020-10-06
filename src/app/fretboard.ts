@@ -27,13 +27,13 @@ export const accidentals = [
 const frets = 15;
 
 function value(s: number, f: number): number {
-  console.log(s, f, tuning[s - 1] + f);
+  // console.log(s, f, tuning[s - 1] + f);
   return tuning[s - 1] + f;
 }
 
 function note_name(s: number, f: number): string {
   const v = value(s, f) % 12;
-  console.log(v);
+  // console.log(v);
   return allNotes[v];
 }
 
