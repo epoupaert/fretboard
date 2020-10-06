@@ -14,7 +14,9 @@ export abstract class Scale {
       default:
         break;
     }
-
+  }
+  static inKey(k: number): Scale {
+    return new MajorScaleInKey(k);
   }
   abstract contains(v: number): boolean;
 }
@@ -37,6 +39,22 @@ class MinorScale extends Scale {
 
 class PentaMinorScale extends Scale {
   formula = [0, 3, 5, 7, 10];
+
+  contains(v: number): boolean {
+    return this.formula.indexOf(v % 12) >= 0;
+  }
+}
+
+class MajorScaleInKey extends Scale {
+  formula: number[];
+  key: number;
+
+  constructor(k: number) {
+    super();
+    this.key = k;
+    this.formula = [0, 2, 4, 5, 7, 9, 11].map(v => (v + this.key) % 12);
+    console.log(this.formula);
+  }
 
   contains(v: number): boolean {
     return this.formula.indexOf(v % 12) >= 0;

@@ -2,9 +2,15 @@
   <h1>The title {{title}}</h1>
 
   <div id="canvas"></div>
-  <div>
+  <div class="btn-group" role="group">
     <button (click)="major()" type="button" class="btn btn-primary">Major</button>
     <button (click)="minor()"type="button" class="btn btn-primary">Minor</button>
     <button (click)="pentaMinor()"type="button" class="btn btn-primary">Penta minor</button>
+  </div>
+  <br>
+  <div class="btn-group" role="group">
+    <button (click)="key(12-3)" type="button" class="btn btn-primary">A</button>
+    <button (click)="key(0)" type="button" class="btn btn-primary">C</button>
+    <button (click)="key(4)" type="button" class="btn btn-primary">E</button>
   </div>
 </div>

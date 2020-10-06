@@ -26,4 +26,8 @@ export class AppComponent implements OnInit {
   pentaMinor(): void {
     draw(Scale.named('pentaMinor'));
   }
+
+  key(k: number): void {
+    draw(Scale.inKey(k));
+  }
 }
