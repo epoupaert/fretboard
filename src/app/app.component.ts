@@ -11,6 +11,9 @@ import { Scale } from './scales';
 export class AppComponent implements OnInit {
   title = 'Fretboard';
 
+  key = 0;
+  accidental = 0;
+
   ngOnInit(): void {
     init('#canvas');
   }
@@ -28,10 +31,20 @@ export class AppComponent implements OnInit {
   }
 
   onKey(k: number): void {
-    draw(Scale.inKey(k));
+    this.key = k;
+    draw(Scale.inKey(this.key + this.accidental));
+  }
+
+  onAccidental(a: number): void {
+    this.accidental = a;
+    draw(Scale.inKey(this.key + this.accidental));
   }
 
   keys(): { name: string, value: number }[] {
     return keys;
+  }
+
+  accidentals(): { name: string, value: number }[] {
+    return accidentals;
   }
 }
