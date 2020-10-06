@@ -19,9 +19,9 @@ export const keys: { name: string, value: number }[] = [
 ];
 
 export const accidentals = [
-  { name: 'b', value: -1 },
+  { name: '\u266D', value: -1 },
   { name: '\u266E', value: 0 },
-  { name: '#', value: 1 }
+  { name: '\u266F', value: 1 }
 ];
 
 const frets = 15;
