@@ -9,7 +9,7 @@ import { Scale } from './scales';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'poc';
+  title = 'Fretboard';
 
   ngOnInit(): void {
     init('#canvas');
