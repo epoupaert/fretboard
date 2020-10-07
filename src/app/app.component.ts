@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'Fretboard';
 
   key: Key = Keys.defaultKey();
+  scale: Scale = Scale.inKey(this.key);
   letters: { letter: Letter, sign: string }[] = Keys.letters;
   accidentals: { accidental: Accidental, sign: string }[] = Keys.accidentals;
 
@@ -22,19 +23,23 @@ export class AppComponent implements OnInit {
   }
 
   major(): void {
-    draw(Scale.named('major'));
+    this.scale = Scale.named('major');
+    draw(this.scale);
   }
 
   minor(): void {
-    draw(Scale.named('minor'));
+    this.scale = Scale.named('minor');
+    draw(this.scale);
   }
 
   pentaMinor(): void {
-    draw(Scale.named('pentaMinor'));
+    this.scale = Scale.named('pentaMinor');
+    draw(this.scale);
   }
 
   redraw(): void {
-    draw(Scale.inKey(this.key));
+    this.scale = Scale.inKey(this.key);
+    draw(this.scale);
   }
 
   log(v: any): void {

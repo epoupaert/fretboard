@@ -20,6 +20,7 @@ export abstract class Scale {
   static inKey(key: Key): Scale {
     return new MajorScaleInKey(key);
   }
+  abstract getName(): string;
   abstract contains(v: number): boolean;
   abstract noteName(v: number): string;
   abstract isRoot(v: number): boolean;
@@ -27,6 +28,10 @@ export abstract class Scale {
 
 class PentaMinorScale extends Scale {
   formula = [0, 3, 5, 7, 10];
+
+  getName(): string {
+    return 'C minor pentatonic';
+  }
 
   contains(v: number): boolean {
     return this.formula.indexOf(v % 12) >= 0;
@@ -60,10 +65,11 @@ function noteName(base: string, accidental: number): string {
 abstract class ScaleInKey extends Scale {
 
   key: Key;
+  name: string;
   formula: number[];
   noteNames: Map<number, string>;
 
-  constructor(k: Key, pattern: number[]) {
+  constructor(k: Key, pattern: number[], modeName: string) {
     super();
     this.key = k;
     const keyValue = this.key.value();
@@ -72,10 +78,15 @@ abstract class ScaleInKey extends Scale {
     const mods = pattern.map((v, i) => v + keyValue - refValues[i]);
     this.formula = pattern.map(v => (v + keyValue) % 12);
     this.noteNames = new Map(refNotes.map((base, i) => [this.formula[i], noteName(base, mods[i])]));
+    this.name = noteName(allNotes[k.letter - 1], k.accidental) + ' ' + modeName;
 
     console.log(k);
     console.log(pattern);
     console.log(this.noteNames);
+  }
+
+  getName(): string {
+    return this.name;
   }
 
   contains(v: number): boolean {
@@ -94,13 +105,13 @@ abstract class ScaleInKey extends Scale {
 
 class MajorScaleInKey extends ScaleInKey {
   constructor(k: Key) {
-    super(k, [0, 2, 4, 5, 7, 9, 11]);
+    super(k, [0, 2, 4, 5, 7, 9, 11], 'major');
   }
 }
 
 class MinorScaleInKey extends ScaleInKey {
   constructor(k: Key) {
-    super(k, [0, 2, 3, 5, 7, 8, 10]);
+    super(k, [0, 2, 3, 5, 7, 8, 10], 'minor');
   }
 }
 
