@@ -11,26 +11,26 @@
   <br>
 
   <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
-    [ngModel]="key"
-    (ngModelChange)="onKey($event)"
+    [ngModel]="key.letter"
+    (ngModelChange)="key.letter=$event;redraw();"
     >
     <label
-      *ngFor="let key of keys()"
+      *ngFor="let l of letters"
       ngbButtonLabel class="btn-primary">
-      <input ngbButton type="radio" [value]="key.value">{{key.name}}
+      <input ngbButton type="radio" [value]="l.letter">{{l.sign}}
     </label>
   </div>
 
   <br>
 
   <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
-    [ngModel]="accidental"
-    (ngModelChange)="onAccidental($event)"
+    [ngModel]="key.accidental"
+    (ngModelChange)="key.accidental=$event;redraw();"
     >
     <label
-      *ngFor="let accidental of accidentals()"
+      *ngFor="let a of accidentals"
       ngbButtonLabel class="btn-primary">
-      <input ngbButton type="radio" [value]="accidental.value">{{accidental.name}}
+      <input ngbButton type="radio" [value]="a.accidental">{{a.sign}}
     </label>
   </div>
 

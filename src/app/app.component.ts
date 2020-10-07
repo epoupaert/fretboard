@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SVG } from '@svgdotjs/svg.js';
-import { init, draw, keys, accidentals } from './fretboard';
+import { init, draw } from './fretboard';
+import { Key, Keys, Letter, Accidental } from './keys';
 import { Scale } from './scales';
 
 @Component({
@@ -11,12 +12,13 @@ import { Scale } from './scales';
 export class AppComponent implements OnInit {
   title = 'Fretboard';
 
-  key = 0;
-  accidental = 0;
+  key: Key = Keys.defaultKey();
+  letters: { letter: Letter, sign: string }[] = Keys.letters;
+  accidentals: { accidental: Accidental, sign: string }[] = Keys.accidentals;
 
   ngOnInit(): void {
     init('#canvas');
-    draw(Scale.inKey(this.key + this.accidental));
+    this.redraw();
   }
 
   major(): void {
@@ -31,21 +33,11 @@ export class AppComponent implements OnInit {
     draw(Scale.named('pentaMinor'));
   }
 
-  onKey(k: number): void {
-    this.key = k;
-    draw(Scale.inKey(this.key + this.accidental));
+  redraw(): void {
+    draw(Scale.inKey(this.key));
   }
 
-  onAccidental(a: number): void {
-    this.accidental = a;
-    draw(Scale.inKey(this.key + this.accidental));
-  }
-
-  keys(): { name: string, value: number }[] {
-    return keys;
-  }
-
-  accidentals(): { name: string, value: number }[] {
-    return accidentals;
+  log(v: any): void {
+    console.log(v);
   }
 }

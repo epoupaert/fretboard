@@ -1,3 +1,5 @@
+import { Key } from './keys';
+
 export abstract class Scale {
   static named(name: string): Scale {
     switch (name) {
@@ -15,8 +17,9 @@ export abstract class Scale {
         break;
     }
   }
-  static inKey(k: number): Scale {
-    return new MajorScaleInKey(k);
+  static inKey(key: Key): Scale {
+    const v = key.value();
+    return new MajorScaleInKey(v);
   }
   abstract contains(v: number): boolean;
 }

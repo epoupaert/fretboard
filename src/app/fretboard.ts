@@ -8,22 +8,6 @@ const major = [0, 2, 4, 5, 7, 9, 11];
 const minor = [0, 2, 3, 5, 7, 8, 10];
 const pentaMinor = [0, 3, 5, 7, 10];
 
-export const keys: { name: string, value: number }[] = [
-  { name: 'C', value: 0 },
-  { name: 'D', value: 2 },
-  { name: 'E', value: 4 },
-  { name: 'F', value: 5 },
-  { name: 'G', value: 7 },
-  { name: 'A', value: 9 },
-  { name: 'B', value: 11 }
-];
-
-export const accidentals = [
-  { name: '\u266D', value: -1 },
-  { name: '\u266E', value: 0 },
-  { name: '\u266F', value: 1 }
-];
-
 const frets = 15;
 
 function value(s: number, f: number): number {
