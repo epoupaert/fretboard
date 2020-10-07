@@ -69,6 +69,17 @@ export function init(selector: string): void {
       });
     }
   }
+
+  const numbers = canvas.group();
+  for (const f of [3, 5, 7, 9, 12, 15]) {
+
+    const text = numbers.text(f.toString());
+    text.move(-10 + 20 * f, 0.5 + 75 - (0.3 - 1) * 15);
+    text.font({
+      fill: '#000000', family: 'Inconsolata', anchor: 'middle', size: 6
+    });
+  }
+
 }
 
 export function draw(scale: Scale): void {
