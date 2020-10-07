@@ -1,4 +1,4 @@
-import { SVG } from '@svgdotjs/svg.js';
+import { SVG, Tspan } from '@svgdotjs/svg.js';
 import { Scale } from './scales';
 
 const tuning = [4, 9, 14, 19, 23, 28];
@@ -76,7 +76,10 @@ export function draw(scale: Scale): void {
     for (let f = 0; f <= frets; f++) {
       const v = value(s, f) % 12;
       if (scale.contains(v)) {
-        canvas.findOne('#' + id(s, f)).show();
+        const noteGroup = canvas.findOne('#' + id(s, f));
+        const text = noteGroup.get(1).first() as Tspan;
+        text.text(scale.noteName(v));
+        noteGroup.show();
       } else {
         canvas.findOne('#' + id(s, f)).hide();
       }

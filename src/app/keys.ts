@@ -1,11 +1,11 @@
 export enum Letter {
-  C = 0,
+  C = 1,
   D = 2,
-  E = 4,
-  F = 5,
-  G = 7,
-  A = 9,
-  B = 11
+  E = 3,
+  F = 4,
+  G = 5,
+  A = 6,
+  B = 7
 }
 
 export enum Accidental {
@@ -14,6 +14,16 @@ export enum Accidental {
   sharp = 1
 }
 
+const letterValues = new Map([
+  [ Letter.C, 0 ],
+  [ Letter.D, 2 ],
+  [ Letter.E, 4 ],
+  [ Letter.F, 5 ],
+  [ Letter.G, 7 ],
+  [ Letter.A, 9 ],
+  [ Letter.B, 11 ]
+]);
+
 export class Key {
   letter: Letter;
   accidental: Accidental;
@@ -21,7 +31,7 @@ export class Key {
     this.letter = letter;
     this.accidental = accidental;
   }
-  value(): number { return this.letter + this.accidental; }
+  value(): number { return letterValues.get(this.letter) + this.accidental; }
 }
 
 export class Keys {
@@ -41,7 +51,7 @@ export class Keys {
       { accidental: Accidental.sharp, sign: '\u266F' }
     ];
 
-  static defaultKey(): Key { return new Key(Letter.C, Accidental.natural); }
+  static defaultKey(): Key { return new Key(Letter.D, Accidental.natural); }
 }
 
 
