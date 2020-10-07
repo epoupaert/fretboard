@@ -22,6 +22,7 @@ export abstract class Scale {
   }
   abstract contains(v: number): boolean;
   abstract noteName(v: number): string;
+  abstract isRoot(v: number): boolean;
 }
 
 class PentaMinorScale extends Scale {
@@ -32,7 +33,11 @@ class PentaMinorScale extends Scale {
   }
 
   noteName(v: number): string {
-    throw new Error('Method not implemented.');
+    return 'C';
+  }
+
+  isRoot(v: number): boolean {
+    return 0 === v % 12;
   }
 }
 
@@ -79,6 +84,10 @@ abstract class ScaleInKey extends Scale {
 
   noteName(v: number): string {
     return this.noteNames.get(v % 12);
+  }
+
+  isRoot(v: number): boolean {
+    return this.key.value() % 12 === v % 12;
   }
 
 }

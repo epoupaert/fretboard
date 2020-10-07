@@ -2,15 +2,16 @@
   <h1>{{title}}</h1>
 
   <div id="canvas"></div>
-  <div class="btn-group" role="group">
+
+  <div class="btn-toolbar" role="toolbar">
+
+  <div class="btn-group mr-2" role="group">
     <button (click)="major()" type="button" class="btn btn-primary">C Major</button>
     <button (click)="minor()"type="button" class="btn btn-primary">C Minor</button>
     <!-- <button (click)="pentaMinor()"type="button" class="btn btn-primary">Penta minor</button> -->
   </div>
 
-  <br>
-
-  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
+  <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
     [ngModel]="key.letter"
     (ngModelChange)="key.letter=$event;redraw();"
     >
@@ -34,6 +35,7 @@
     </label>
   </div>
 
+  </div>
 
   <hr>
 </div>

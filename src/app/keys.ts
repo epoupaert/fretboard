@@ -51,7 +51,7 @@ export class Keys {
       { accidental: Accidental.sharp, sign: '\u266F' }
     ];
 
-  static defaultKey(): Key { return new Key(Letter.D, Accidental.natural); }
+  static defaultKey(): Key { return new Key(Letter.C, Accidental.natural); }
 }
 
 

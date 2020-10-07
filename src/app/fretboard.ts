@@ -1,4 +1,4 @@
-import { SVG, Tspan } from '@svgdotjs/svg.js';
+import { SVG, Tspan, Circle } from '@svgdotjs/svg.js';
 import { Scale } from './scales';
 
 const tuning = [4, 9, 14, 19, 23, 28];
@@ -80,6 +80,14 @@ export function draw(scale: Scale): void {
         const noteGroup = canvas.findOne('#' + id(s, f));
         const text = noteGroup.get(1).first() as Tspan;
         text.text(scale.noteName(v));
+        const circle = noteGroup.first() as Circle;
+        if (scale.isRoot(v)) {
+          circle.stroke({ color: '#990000', width: 0.5 });
+          circle.fill({ color: '#ff9999' });
+        } else {
+          circle.stroke({ color: '#000000', width: 0.5 });
+          circle.fill({ color: '#cccccc' });
+        }
         noteGroup.show();
       } else {
         canvas.findOne('#' + id(s, f)).hide();
