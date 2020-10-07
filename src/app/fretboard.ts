@@ -27,13 +27,14 @@ function id(s: number, f: number): string {
 
 
 export function init(selector: string): void {
-  const svgRoot = SVG().addTo(selector).size(1500, 500);
+  const svgRoot = SVG().addTo(selector) // .size(1500, 500)
+    .viewbox(0, 0, 1500, 450);
 
   // var rect = draw.rect(100, 100).attr({ fill: '#f06' })
 
   const canvas = svgRoot.group();
-  canvas.scale(4);
-  canvas.translate(70, 30);
+  canvas.translate(75, 30);
+  canvas.scale(4.65);
   canvas.id('canvas');
 
   const grid = canvas.group();
