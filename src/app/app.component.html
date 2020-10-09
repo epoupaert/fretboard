@@ -5,12 +5,6 @@
 
   <div class="btn-toolbar" role="toolbar">
 
-  <div class="btn-group mr-2" role="group">
-    <button (click)="major()" type="button" class="btn btn-primary">C Major</button>
-    <button (click)="minor()"type="button" class="btn btn-primary">C Minor</button>
-    <!-- <button (click)="pentaMinor()"type="button" class="btn btn-primary">Penta minor</button> -->
-  </div>
-
   <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
     [ngModel]="key.letter"
     (ngModelChange)="key.letter=$event;redraw();"
@@ -22,9 +16,7 @@
     </label>
   </div>
 
-  <br>
-
-  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
+  <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
     [ngModel]="key.accidental"
     (ngModelChange)="key.accidental=$event;redraw();"
     >
@@ -35,7 +27,17 @@
     </label>
   </div>
 
+  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
+    >
+    <label ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" [value]="major">major
+    </label>
+    <label ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" [value]="minor">minor
+    </label>
   </div>
+
+</div>
 
   <hr>
 </div>
