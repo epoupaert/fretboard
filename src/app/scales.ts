@@ -62,6 +62,10 @@ function noteName(base: string, accidental: number): string {
   }
 }
 
+function mod12(n: number): number {
+  return ((n % 12) + 12) % 12;
+}
+
 abstract class ScaleInKey extends Scale {
 
   key: Key;
@@ -76,7 +80,7 @@ abstract class ScaleInKey extends Scale {
     const refValues = allValues.slice(k.letter - 1, k.letter + 6);
     const refNotes = allNotes.slice(k.letter - 1, k.letter + 6);
     const mods = pattern.map((v, i) => v + keyValue - refValues[i]);
-    this.formula = pattern.map(v => (v + keyValue) % 12);
+    this.formula = pattern.map(v => mod12(v + keyValue));
     this.noteNames = new Map(refNotes.map((base, i) => [this.formula[i], noteName(base, mods[i])]));
     this.name = noteName(allNotes[k.letter - 1], k.accidental) + ' ' + modeName;
 
@@ -90,15 +94,15 @@ abstract class ScaleInKey extends Scale {
   }
 
   contains(v: number): boolean {
-    return this.formula.indexOf(v % 12) >= 0;
+    return this.formula.indexOf(mod12(v)) >= 0;
   }
 
   noteName(v: number): string {
-    return this.noteNames.get(v % 12);
+    return this.noteNames.get(mod12(v));
   }
 
   isRoot(v: number): boolean {
-    return this.key.value() % 12 === v % 12;
+    return mod12(this.key.value()) === mod12(v);
   }
 
 }
