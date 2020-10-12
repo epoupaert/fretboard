@@ -55,7 +55,6 @@ export function init(selector: string): void {
   for (let s = 1; s <= 6; s++) {
     for (let f = 0; f <= frets; f++) {
       const note = notes.group().id(id(s, f));
-      note.hide();
 
       const circle = note.circle(10).move(-15 + 20 * f, -5 + 75 - (s - 1) * 15);
       circle.stroke({ color: '#000000', width: 0.5 });
@@ -67,6 +66,8 @@ export function init(selector: string): void {
       text.font({
         fill: '#000000', family: 'Inconsolata', anchor: 'middle', size: 6
       });
+
+      note.hide();
     }
   }
 
