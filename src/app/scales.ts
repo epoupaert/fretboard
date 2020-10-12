@@ -1,24 +1,24 @@
 import { Key, Letter, Accidental } from './keys';
 
-export abstract class Scale {
-  static named(name: string): Scale {
-    switch (name) {
-      case 'major':
-        return new MajorScale();
-        break;
-      case 'minor':
-        return new MinorScale();
-        break;
-      case 'pentaMinor':
-        return new PentaMinorScale();
-        break;
+export enum Mode {
+  major,
+  minor
+}
 
-      default:
+export abstract class Scale {
+  static modes = [
+    { mode: Mode.major, label: 'major'},
+    { mode: Mode.minor, label: 'minor'}
+  ];
+  static in(key: Key, mode: Mode): Scale {
+    switch (mode) {
+      case Mode.major:
+        return new MajorScaleInKey(key);
+        break;
+      case Mode.minor:
+        return new MinorScaleInKey(key);
         break;
     }
-  }
-  static inKey(key: Key): Scale {
-    return new MajorScaleInKey(key);
   }
   abstract getName(): string;
   abstract contains(v: number): boolean;
@@ -116,17 +116,5 @@ class MajorScaleInKey extends ScaleInKey {
 class MinorScaleInKey extends ScaleInKey {
   constructor(k: Key) {
     super(k, [0, 2, 3, 5, 7, 8, 10], 'minor');
-  }
-}
-
-class MajorScale extends MajorScaleInKey {
-  constructor() {
-    super(new Key(Letter.C, Accidental.natural));
-  }
-}
-
-class MinorScale extends MinorScaleInKey {
-  constructor() {
-    super(new Key(Letter.C, Accidental.natural));
   }
 }
