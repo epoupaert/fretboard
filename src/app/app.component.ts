@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SVG } from '@svgdotjs/svg.js';
-import { init, draw } from './fretboard';
+import { Fretboard } from './fretboard';
 import { Key, Letter, Accidental } from './keys';
 import { Scale, Mode } from './scales';
 
@@ -20,14 +20,16 @@ export class AppComponent implements OnInit {
   accidentals: { accidental: Accidental, sign: string }[] = Key.accidentals;
   modes: { mode: Mode, label: string }[] = Scale.modes;
 
+  fretboard: Fretboard = new Fretboard();
+
   ngOnInit(): void {
-    init('#canvas');
+    this.fretboard.init('#canvas');
     this.redraw();
   }
 
   redraw(): void {
     this.scale = Scale.in(this.key, this.mode);
-    draw(this.scale);
+    this.fretboard.draw(this.scale);
   }
 
   log(v: any): void {
