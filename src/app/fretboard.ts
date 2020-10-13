@@ -1,4 +1,4 @@
-import { SVG, Text, Circle, Element, Dom, G, Container } from '@svgdotjs/svg.js';
+import { SVG, Text, Circle, Dom, Container } from '@svgdotjs/svg.js';
 import { Scale } from './scales';
 
 const frets = 15;

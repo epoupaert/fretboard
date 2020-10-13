@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SVG } from '@svgdotjs/svg.js';
 import { Fretboard } from './fretboard';
 import { Key, Letter, Accidental } from './keys';
 import { Scale, Mode } from './scales';
