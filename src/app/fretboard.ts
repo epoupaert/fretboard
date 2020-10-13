@@ -2,15 +2,18 @@ import { SVG, Text, Circle, Dom, Container } from '@svgdotjs/svg.js';
 import { Board, BoardNote } from './board';
 import { Scale } from './scales';
 
-const frets = 15;
-const tuning = [4, 9, 14, 19, 23, 28];
 const defaultScale = Scale.defaultScale();
 
-export class Fretboard extends Board {
+abstract class Fretboard extends Board {
+  abstract strings: number;
+  abstract tuning: number[];
+  abstract frets: number;
+  abstract marks: number[];
+
   canvas: Container;
 
   value(s: number, f: number): number {
-    return tuning[s - 1] + f;
+    return this.tuning[s - 1] + f;
   }
 
   note_name(s: number, f: number): string {
@@ -26,14 +29,14 @@ export class Fretboard extends Board {
   drawGrid(): void {
     const grid = this.canvas.group();
 
-    for (let f = 0; f <= frets; f++) {
-      const line = grid.line(0, 75, 0, 0).move(20 * f, 0).id('R' + f);
+    for (let f = 0; f <= this.frets; f++) {
+      const line = grid.line(0, (this.strings - 1) * 15, 0, 0).move(20 * f, 0).id('R' + f);
       const w = f === 0 ? 2 : 0.5;
       line.stroke({ color: '#000000', width: w });
     }
 
-    for (let s = 1; s <= 6; s++) {
-      const line = grid.line(0, 0, frets * 20, 0).move(0, 75 - (s - 1) * 15).id('L' + s);
+    for (let s = 1; s <= this.strings; s++) {
+      const line = grid.line(0, 0, this.frets * 20, 0).move(0, (this.strings - s) * 15).id('L' + s);
       const factor = 1 - (s - 1) * 0.1;
       line.stroke({ color: '#000000', width: factor });
     }
@@ -41,17 +44,17 @@ export class Fretboard extends Board {
 
   drawNotes(): void {
     const notes = this.canvas.group();
-    for (let s = 1; s <= 6; s++) {
-      for (let f = 0; f <= frets; f++) {
+    for (let s = 1; s <= this.strings; s++) {
+      for (let f = 0; f <= this.frets; f++) {
         const note = notes.group().id(this.id(s, f));
 
-        const circle = note.circle(10).move(-15 + 20 * f, -5 + 75 - (s - 1) * 15);
+        const circle = note.circle(10).move(-15 + 20 * f, -5 + (this.strings - s) * 15);
         circle.stroke({ color: '#000000', width: 0.5 });
         circle.fill({ color: '#cccccc' });
 
         const name = this.note_name(s, f);
         const text = note.plain(name);
-        text.move(-10 + 20 * f, -12.7 + 75 - (s - 1) * 15);
+        text.move(-10 + 20 * f, -12.7 + (this.strings - s) * 15);
         text.font({
           fill: '#000000', family: 'Inconsolata', anchor: 'middle', size: 6
         });
@@ -63,10 +66,10 @@ export class Fretboard extends Board {
 
   drawNumbers(): void {
     const numbers = this.canvas.group();
-    for (const f of [3, 5, 7, 9, 12, 15]) {
+    for (const f of this.marks) {
 
       const text = numbers.text(f.toString());
-      text.move(-10 + 20 * f, 0.5 + 75 - (0.3 - 1) * 15);
+      text.move(-10 + 20 * f, 0.5 + (this.strings - 0.3) * 15);
       text.font({
         fill: '#000000', family: 'Inconsolata', anchor: 'middle', size: 6
       });
@@ -74,10 +77,11 @@ export class Fretboard extends Board {
   }
 
   init(selector: string): void {
-    const svgRoot = SVG().addTo(selector).viewbox(0, 0, 1500, 450);
+    const scaleFactor = 4.65;
+    const svgRoot = SVG().addTo(selector).viewbox(0, 0, (this.frets + 1) * 20 * scaleFactor, (this.strings + 1) * 15 * scaleFactor);
     this.canvas = svgRoot.group()
       .translate(75, 30)
-      .scale(4.65)
+      .scale(scaleFactor)
       .id('canvas');
 
     this.drawGrid();
@@ -86,8 +90,8 @@ export class Fretboard extends Board {
   }
 
   *notes(): Iterable<FretboardNote> {
-    for (let s = 1; s <= 6; s++) {
-      for (let f = 0; f <= frets; f++) {
+    for (let s = 1; s <= this.strings; s++) {
+      for (let f = 0; f <= this.frets; f++) {
         const value = this.value(s, f);
         const id = this.id(s, f);
         yield new FretboardNote(value, () => this.canvas.findOne('#' + id));
@@ -134,4 +138,18 @@ class FretboardNote implements BoardNote {
   hide(): void {
     this.getNoteGroup().hide();
   }
+}
+
+export class GuitarFretboard extends Fretboard {
+  frets = 15;
+  strings = 6;
+  tuning = [4, 9, 14, 19, 23, 28]; // E2, A2, D3, G3, B3, E4
+  marks = [3, 5, 7, 9, 12, 15];
+}
+
+export class UkuleleFretboard extends Fretboard {
+  strings = 4;
+  tuning = [31, 24, 28, 33]; // G4, C4, E4, A4
+  frets = 12;
+  marks = [3, 5, 7, 9, 12];
 }

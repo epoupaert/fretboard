@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Board } from './board';
-import { Fretboard } from './fretboard';
+import { GuitarFretboard, UkuleleFretboard } from './fretboard';
 import { Key, Letter, Accidental } from './keys';
 import { Scale, Mode } from './scales';
 
@@ -20,7 +20,8 @@ export class AppComponent implements OnInit {
   accidentals: { accidental: Accidental, sign: string }[] = Key.accidentals;
   modes: { mode: Mode, label: string }[] = Scale.modes;
 
-  board: Board = new Fretboard();
+  board: Board = new GuitarFretboard();
+  // board: Board = new UkuleleFretboard();
 
   ngOnInit(): void {
     this.board.init('#canvas');
