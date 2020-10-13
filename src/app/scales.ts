@@ -1,4 +1,4 @@
-import { Key, Letter, Accidental } from './keys';
+import { Key } from './keys';
 
 export enum Mode {
   major,
@@ -19,6 +19,9 @@ export abstract class Scale {
         return new MinorScaleInKey(key);
         break;
     }
+  }
+  static defaultScale(): Scale {
+    return new MajorScaleInKey(Key.defaultKey());
   }
   abstract getName(): string;
   abstract contains(v: number): boolean;

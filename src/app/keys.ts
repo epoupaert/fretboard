@@ -25,8 +25,27 @@ const letterValues = new Map([
 ]);
 
 export class Key {
+  static letters: { letter: Letter, sign: string }[] = [
+    { letter: Letter.C, sign: 'C' },
+    { letter: Letter.D, sign: 'D' },
+    { letter: Letter.E, sign: 'E' },
+    { letter: Letter.F, sign: 'F' },
+    { letter: Letter.G, sign: 'G' },
+    { letter: Letter.A, sign: 'A' },
+    { letter: Letter.B, sign: 'B' }
+  ];
+
+  static accidentals: { accidental: Accidental, sign: string }[] = [
+    { accidental: Accidental.flat, sign: '\u266D' },
+    { accidental: Accidental.natural, sign: '\u266E' },
+    { accidental: Accidental.sharp, sign: '\u266F' }
+  ];
+
   letter: Letter;
   accidental: Accidental;
+
+  static defaultKey(): Key { return new Key(Letter.C, Accidental.natural); }
+
   constructor(letter: Letter, accidental: Accidental) {
     this.letter = letter;
     this.accidental = accidental;
@@ -34,24 +53,5 @@ export class Key {
   value(): number { return letterValues.get(this.letter) + this.accidental; }
 }
 
-export class Keys {
-  static letters: { letter: Letter, sign: string }[] = [
-      { letter: Letter.C, sign: 'C' },
-      { letter: Letter.D, sign: 'D' },
-      { letter: Letter.E, sign: 'E' },
-      { letter: Letter.F, sign: 'F' },
-      { letter: Letter.G, sign: 'G' },
-      { letter: Letter.A, sign: 'A' },
-      { letter: Letter.B, sign: 'B' }
-    ];
-
-  static accidentals: { accidental: Accidental, sign: string }[] = [
-      { accidental: Accidental.flat, sign: '\u266D' },
-      { accidental: Accidental.natural, sign: '\u266E' },
-      { accidental: Accidental.sharp, sign: '\u266F' }
-    ];
-
-  static defaultKey(): Key { return new Key(Letter.C, Accidental.natural); }
-}
 
 

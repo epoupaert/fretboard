@@ -1,30 +1,22 @@
 import { SVG, Text, Circle } from '@svgdotjs/svg.js';
 import { Scale } from './scales';
 
-const tuning = [4, 9, 14, 19, 23, 28];
-// var all_notes = [ 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B' ]
-const allNotes = ['C', 'Dd', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
-const major = [0, 2, 4, 5, 7, 9, 11];
-const minor = [0, 2, 3, 5, 7, 8, 10];
-const pentaMinor = [0, 3, 5, 7, 10];
-
 const frets = 15;
+const tuning = [4, 9, 14, 19, 23, 28];
+const defaultScale = Scale.defaultScale();
 
 function value(s: number, f: number): number {
-  // console.log(s, f, tuning[s - 1] + f);
   return tuning[s - 1] + f;
 }
 
 function note_name(s: number, f: number): string {
-  const v = value(s, f) % 12;
-  // console.log(v);
-  return allNotes[v];
+  const v = value(s, f);
+  return defaultScale.noteName(v) || '?';
 }
 
 function id(s: number, f: number): string {
   return 'S' + s + 'F' + f;
 }
-
 
 export function init(selector: string): void {
   const svgRoot = SVG().addTo(selector) // .size(1500, 500)

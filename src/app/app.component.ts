@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SVG } from '@svgdotjs/svg.js';
 import { init, draw } from './fretboard';
-import { Key, Keys, Letter, Accidental } from './keys';
+import { Key, Letter, Accidental } from './keys';
 import { Scale, Mode } from './scales';
 
 @Component({
@@ -12,11 +12,12 @@ import { Scale, Mode } from './scales';
 export class AppComponent implements OnInit {
   title = 'Fretboard';
 
-  key: Key = Keys.defaultKey();
+  key: Key = Key.defaultKey();
   mode: Mode = Scale.modes[0].mode;
   scale: Scale = Scale.in(this.key, this.mode);
-  letters: { letter: Letter, sign: string }[] = Keys.letters;
-  accidentals: { accidental: Accidental, sign: string }[] = Keys.accidentals;
+
+  letters: { letter: Letter, sign: string }[] = Key.letters;
+  accidentals: { accidental: Accidental, sign: string }[] = Key.accidentals;
   modes: { mode: Mode, label: string }[] = Scale.modes;
 
   ngOnInit(): void {
