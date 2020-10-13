@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Board } from './board';
 import { Fretboard } from './fretboard';
 import { Key, Letter, Accidental } from './keys';
 import { Scale, Mode } from './scales';
@@ -19,16 +20,16 @@ export class AppComponent implements OnInit {
   accidentals: { accidental: Accidental, sign: string }[] = Key.accidentals;
   modes: { mode: Mode, label: string }[] = Scale.modes;
 
-  fretboard: Fretboard = new Fretboard();
+  board: Board = new Fretboard();
 
   ngOnInit(): void {
-    this.fretboard.init('#canvas');
+    this.board.init('#canvas');
     this.redraw();
   }
 
   redraw(): void {
     this.scale = Scale.in(this.key, this.mode);
-    this.fretboard.draw(this.scale);
+    this.board.draw(this.scale);
   }
 
   log(v: any): void {

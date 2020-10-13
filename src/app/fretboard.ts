@@ -1,11 +1,12 @@
 import { SVG, Text, Circle, Dom, Container } from '@svgdotjs/svg.js';
+import { Board, BoardNote } from './board';
 import { Scale } from './scales';
 
 const frets = 15;
 const tuning = [4, 9, 14, 19, 23, 28];
 const defaultScale = Scale.defaultScale();
 
-export class Fretboard {
+export class Fretboard extends Board {
   canvas: Container;
 
   value(s: number, f: number): number {
@@ -84,8 +85,7 @@ export class Fretboard {
     this.drawNumbers();
   }
 
-
-  *notes(): IterableIterator<FretboardNote> {
+  *notes(): Iterable<FretboardNote> {
     for (let s = 1; s <= 6; s++) {
       for (let f = 0; f <= frets; f++) {
         const value = this.value(s, f);
@@ -94,22 +94,9 @@ export class Fretboard {
       }
     }
   }
-
-  draw(scale: Scale): void {
-    for (const note of this.notes()) {
-      const v = note.value;
-      if (scale.contains(v)) {
-        note.show();
-        note.setName(scale.noteName(v));
-        note.setColor(scale.isRoot(v));
-      } else {
-        note.hide();
-      }
-    }
-  }
 }
 
-class FretboardNote {
+class FretboardNote implements BoardNote {
   canvas: Dom;
   noteGroup: Dom;
   id: string;
