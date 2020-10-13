@@ -90,26 +90,24 @@ export class Fretboard extends Board {
       for (let f = 0; f <= frets; f++) {
         const value = this.value(s, f);
         const id = this.id(s, f);
-        yield new FretboardNote(this.canvas, id, value);
+        yield new FretboardNote(value, () => this.canvas.findOne('#' + id));
       }
     }
   }
 }
 
 class FretboardNote implements BoardNote {
-  canvas: Dom;
-  noteGroup: Dom;
-  id: string;
   value: number;
+  locator: () => Dom;
+  noteGroup: Dom;
 
-  constructor(canvas: Dom, id: string, value: number) {
-    this.canvas = canvas;
-    this.id = id;
+  constructor(value: number, locator: () => Dom) {
     this.value = value;
+    this.locator = locator;
   }
 
   getNoteGroup(): Dom {
-    this.noteGroup = this.noteGroup || this.canvas.findOne('#' + this.id);
+    this.noteGroup = this.noteGroup || this.locator();
     return this.noteGroup;
   }
 
