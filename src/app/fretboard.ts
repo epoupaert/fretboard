@@ -98,6 +98,10 @@ abstract class Fretboard extends Board {
       }
     }
   }
+
+  remove(): void {
+    this.canvas.root().remove();
+  }
 }
 
 class FretboardNote implements BoardNote {

@@ -1,9 +1,19 @@
 <div class="container">
-  <h1>{{scale.getName()}} scale</h1>
+  <h1>{{noteGroup.getName()}}</h1>
 
   <div id="canvas"></div>
 
   <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
+    [ngModel]="boardValue"
+    (ngModelChange)="boardValue=$event;resetBoard();"
+    >
+      <label
+        *ngFor="let b of boards"
+        ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="b.value">{{b.label}}
+      </label>
+    </div>
 
   <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
     [ngModel]="key.letter"
@@ -27,7 +37,8 @@
     </label>
   </div>
 
-  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
+
+  <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
     [ngModel]="mode"
     (ngModelChange)="mode=$event;redraw()"
     >
@@ -38,6 +49,16 @@
     </label>
   </div>
 
+  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
+    [ngModel]="kind"
+    (ngModelChange)="kind=$event;onKindChanged()"
+    >
+    <label
+      *ngFor="let k of kinds"
+      ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" [value]="k.value">{{k.label}}
+    </label>
+  </div>
 </div>
 
   <hr>

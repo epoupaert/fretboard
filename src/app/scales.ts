@@ -1,14 +1,11 @@
+import { NoteGroup } from './noteGroup';
 import { Key } from './keys';
+import { allNotes, allValues, mod12, Mode, noteName } from './music';
 
-export enum Mode {
-  major,
-  minor
-}
-
-export abstract class Scale {
+export abstract class Scale implements NoteGroup {
   static modes = [
-    { mode: Mode.major, label: 'major'},
-    { mode: Mode.minor, label: 'minor'}
+    { mode: Mode.major, label: 'Major'},
+    { mode: Mode.minor, label: 'Minor'}
   ];
   static in(key: Key, mode: Mode): Scale {
     switch (mode) {
@@ -49,26 +46,6 @@ class PentaMinorScale extends Scale {
   }
 }
 
-const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
-const allNotes = notes.concat(notes);
-
-const values = [0, 2, 4, 5, 7, 9, 11];
-const allValues = values.concat(values.map(v => v + 12));
-
-function noteName(base: string, accidental: number): string {
-  if (accidental === 0) {
-    return base;
-  } else if (accidental > 0) {
-    return base + '#'.repeat(accidental);
-  } else {
-    return base + 'b'.repeat(-accidental);
-  }
-}
-
-function mod12(n: number): number {
-  return ((n % 12) + 12) % 12;
-}
-
 abstract class ScaleInKey extends Scale {
 
   key: Key;
@@ -85,7 +62,7 @@ abstract class ScaleInKey extends Scale {
     const mods = pattern.map((v, i) => v + keyValue - refValues[i]);
     this.formula = pattern.map(v => mod12(v + keyValue));
     this.noteNames = new Map(refNotes.map((base, i) => [this.formula[i], noteName(base, mods[i])]));
-    this.name = noteName(allNotes[k.letter - 1], k.accidental) + ' ' + modeName;
+    this.name = noteName(allNotes[k.letter - 1], k.accidental) + ' ' + modeName + ' scale';
 
     console.log(k);
     console.log(pattern);

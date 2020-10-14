@@ -3,6 +3,7 @@ import { Scale } from './scales';
 export abstract class Board {
   abstract notes(): Iterable<BoardNote>;
   abstract init(selector: string): void;
+  abstract remove(): void;
 }
 
 export interface BoardNote {
