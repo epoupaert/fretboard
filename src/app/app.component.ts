@@ -3,6 +3,7 @@ import { Board } from './board';
 import { GuitarFretboard, UkuleleFretboard } from './fretboard';
 import { Key, Letter, Accidental } from './keys';
 import { Scale, Mode } from './scales';
+import { draw } from './visualizer';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
 
   redraw(): void {
     this.scale = Scale.in(this.key, this.mode);
-    this.board.draw(this.scale);
+    draw(this.board, this.scale);
   }
 
   log(v: any): void {
