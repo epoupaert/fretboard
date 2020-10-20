@@ -1,0 +1,68 @@
+{
+  "configVersion": 1,
+  "timestamp": 1603183418149,
+  "index": "/fretboard/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/fretboard/favicon.ico",
+        "/fretboard/index.html",
+        "/fretboard/main.70a49117f5cfc6ff33c5.js",
+        "/fretboard/manifest.webmanifest",
+        "/fretboard/polyfills.0886a72defc1067f2b2c.js",
+        "/fretboard/runtime.acf0dec4155e77772545.js",
+        "/fretboard/styles.9cd4f5dcb2e7ccf5057f.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/fretboard/assets/icons/icon-192x192.png",
+        "/fretboard/assets/icons/icon-512x512.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/fretboard/assets/icons/icon-192x192.png": "c004df803fad9e7bb2b700f11f196e47cf4a0a5f",
+    "/fretboard/assets/icons/icon-512x512.png": "578d9d8890303c3c49fbbfd30dcfd96e5c2a3302",
+    "/fretboard/favicon.ico": "659a5440c23065aad4194cfc4aae3d1b5798b373",
+    "/fretboard/index.html": "970282e2d67b75c4e305e6160a748b358ceae4c6",
+    "/fretboard/main.70a49117f5cfc6ff33c5.js": "bb1d807b1a62de681f355ac156ac6dd9f799abf6",
+    "/fretboard/manifest.webmanifest": "382d0742bf6572b80c5804f27e53421bbe73893e",
+    "/fretboard/polyfills.0886a72defc1067f2b2c.js": "dbc502f030c7bb83c7caa1feee7aff990831f7d9",
+    "/fretboard/runtime.acf0dec4155e77772545.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "/fretboard/styles.9cd4f5dcb2e7ccf5057f.css": "f2b86def6a2a0c7327948412b461f618d4094051"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
