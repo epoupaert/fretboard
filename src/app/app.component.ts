@@ -1,12 +1,11 @@
 import { NoteGroup } from './noteGroup';
 import { Component, OnInit } from '@angular/core';
 import { Board } from './board';
-import { Chord } from './chord';
-import { GuitarFretboard, UkuleleFretboard } from './fretboard';
 import { Key, Letter, Accidental } from './keys';
-import { Mode } from './music';
-import { Scale } from './scales';
-import { drawScale, drawChord } from './visualizer';
+import { Scale, Mode } from './scales';
+import { Chord, ChordType } from './chord';
+import { GuitarFretboard, UkuleleFretboard } from './fretboard';
+import { drawNotesWithNames, drawNotesWithDegrees } from './visualizer';
 
 const makeGuitare = () => new GuitarFretboard();
 
@@ -19,12 +18,15 @@ export class AppComponent implements OnInit {
   title = 'Fretboard';
 
   key: Key = Key.defaultKey();
-  mode: Mode = Scale.modes[0].mode;
+  scaleMode: Mode = Scale.modes[0].value;
+  chordType: ChordType = Chord.kinds[0].value;
   noteGroup: NoteGroup;
 
   letters: { letter: Letter, sign: string }[] = Key.letters;
   accidentals: { accidental: Accidental, sign: string }[] = Key.accidentals;
-  modes: { mode: Mode, label: string }[] = Scale.modes;
+
+  scaleModes = Scale.modes;
+  chordTypes = Chord.kinds;
 
   boardValue = 'guitar';
   boards = [
@@ -42,12 +44,12 @@ export class AppComponent implements OnInit {
   kind = 'scale';
   kinds = [
     { value: 'scale', label: 'Scale' },
-    { value: 'triad', label: 'Triad' },
+    { value: 'triad', label: 'Chord' },
   ];
 
   noteGroupFactories = new Map<string, () => NoteGroup>([
-    ['scale', () => Scale.in(this.key, this.mode) ],
-    ['triad', () => Chord.in(this.key, this.mode) ]
+    ['scale', () => Scale.in(this.key, this.scaleMode) ],
+    ['triad', () => Chord.in(this.key, this.chordType) ]
   ]);
 
   onKindChanged(): void {
@@ -70,7 +72,8 @@ export class AppComponent implements OnInit {
 
   redraw(): void {
     this.noteGroup = this.makeNoteGroup();
-    drawChord(this.board, this.noteGroup);
+    // drawNotesWithNames(this.board, this.noteGroup);
+    drawNotesWithDegrees(this.board, this.noteGroup);
   }
 
   resetBoard(): void {

@@ -1,10 +1,6 @@
 <div class="container">
-  <h1>{{noteGroup.getName()}}</h1>
-
-  <div id="canvas"></div>
-
-  <div class="btn-toolbar" role="toolbar">
-    <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
+  <h1>{{noteGroup.getName()}}
+    <div class="btn-group float-right mt-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
     [ngModel]="boardValue"
     (ngModelChange)="boardValue=$event;resetBoard();"
     >
@@ -14,52 +10,69 @@
         <input ngbButton type="radio" [value]="b.value">{{b.label}}
       </label>
     </div>
+  </h1>
 
-  <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
-    [ngModel]="key.letter"
-    (ngModelChange)="key.letter=$event;redraw();"
-    >
-    <label
-      *ngFor="let l of letters"
-      ngbButtonLabel class="btn-primary">
-      <input ngbButton type="radio" [value]="l.letter">{{l.sign}}
-    </label>
+  <div id="canvas"></div>
+
+  <div class="btn-toolbar mb-1" role="toolbar">
+
+    <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
+      [ngModel]="key.letter"
+      (ngModelChange)="key.letter=$event;redraw();"
+      >
+      <label
+        *ngFor="let l of letters"
+        ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="l.letter">{{l.sign}}
+      </label>
+    </div>
+
+    <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
+      [ngModel]="key.accidental"
+      (ngModelChange)="key.accidental=$event;redraw();"
+      >
+      <label
+        *ngFor="let a of accidentals"
+        ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="a.accidental">{{a.sign}}
+      </label>
+    </div>
   </div>
 
-  <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
-    [ngModel]="key.accidental"
-    (ngModelChange)="key.accidental=$event;redraw();"
-    >
-    <label
-      *ngFor="let a of accidentals"
-      ngbButtonLabel class="btn-primary">
-      <input ngbButton type="radio" [value]="a.accidental">{{a.sign}}
-    </label>
+  <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
+      [ngModel]="kind"
+      (ngModelChange)="kind=$event;onKindChanged()"
+      >
+      <label
+        *ngFor="let k of kinds"
+        ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="k.value">{{k.label}}
+      </label>
+    </div>
+    <div
+      *ngIf="kind === 'scale'"
+      class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
+      [ngModel]="scaleMode"
+      (ngModelChange)="scaleMode=$event;redraw()"
+      >
+      <label
+        *ngFor="let m of scaleModes"
+        ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="m.value">{{m.label}}
+      </label>
+    </div>
+    <div
+      *ngIf="kind === 'triad'"
+      class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
+      [ngModel]="chordType"
+      (ngModelChange)="chordType=$event;redraw()"
+      >
+      <label
+        *ngFor="let t of chordTypes"
+        ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="t.value">{{t.label}}
+      </label>
+    </div>
   </div>
-
-
-  <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
-    [ngModel]="mode"
-    (ngModelChange)="mode=$event;redraw()"
-    >
-    <label
-      *ngFor="let m of modes"
-      ngbButtonLabel class="btn-primary">
-      <input ngbButton type="radio" [value]="m.mode">{{m.label}}
-    </label>
-  </div>
-
-  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
-    [ngModel]="kind"
-    (ngModelChange)="kind=$event;onKindChanged()"
-    >
-    <label
-      *ngFor="let k of kinds"
-      ngbButtonLabel class="btn-primary">
-      <input ngbButton type="radio" [value]="k.value">{{k.label}}
-    </label>
-  </div>
-</div>
-
-  <hr>
 </div>

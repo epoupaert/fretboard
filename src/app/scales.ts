@@ -1,28 +1,45 @@
 import { NoteGroup } from './noteGroup';
 import { Key } from './keys';
-import { allNotes, allValues, mod12, Mode, noteName } from './music';
+import { allNotes, allValues, degreeName, mod12, noteName } from './music';
+
+export enum Mode {
+  major,
+  minor,
+  lydian,
+  mixolydian,
+  dorian,
+  phrygian,
+  locrian
+}
 
 export abstract class Scale implements NoteGroup {
   static modes = [
-    { mode: Mode.major, label: 'Major'},
-    { mode: Mode.minor, label: 'Minor'}
+    { value: Mode.major, label: 'Major'},
+    { value: Mode.minor, label: 'Minor' },
+    { value: Mode.lydian, label: 'Lydian'},
+    { value: Mode.mixolydian, label: 'Mixolydian'},
+    { value: Mode.dorian, label: 'Dorian'},
+    { value: Mode.phrygian, label: 'Phrygian'},
+    { value: Mode.locrian, label: 'Locrian'}
   ];
   static in(key: Key, mode: Mode): Scale {
     switch (mode) {
-      case Mode.major:
-        return new MajorScaleInKey(key);
-        break;
-      case Mode.minor:
-        return new MinorScaleInKey(key);
-        break;
+      case Mode.lydian:     return new ScaleInKey(key, [0, 2, 4, 6, 7, 9, 11], 'lydian');
+      case Mode.major:      return new ScaleInKey(key, [0, 2, 4, 5, 7, 9, 11], 'major');
+      case Mode.mixolydian: return new ScaleInKey(key, [0, 2, 4, 5, 7, 9, 10], 'mixolydian');
+      case Mode.dorian:     return new ScaleInKey(key, [0, 2, 3, 5, 7, 9, 10], 'dorian');
+      case Mode.minor:      return new ScaleInKey(key, [0, 2, 3, 5, 7, 8, 10], 'minor');
+      case Mode.phrygian:   return new ScaleInKey(key, [0, 1, 3, 5, 7, 8, 10], 'phrygian');
+      case Mode.locrian:    return new ScaleInKey(key, [0, 1, 3, 5, 6, 8, 10], 'locrian');
     }
   }
   static defaultScale(): Scale {
-    return new MajorScaleInKey(Key.defaultKey());
+    return Scale.in(Key.defaultKey(), Mode.major);
   }
   abstract getName(): string;
   abstract contains(v: number): boolean;
   abstract noteName(v: number): string;
+  abstract degreeName(v: number): string;
   abstract isRoot(v: number): boolean;
 }
 
@@ -41,17 +58,22 @@ class PentaMinorScale extends Scale {
     return 'C';
   }
 
+  degreeName(v: number): string {
+    return '1';
+  }
+
   isRoot(v: number): boolean {
     return 0 === v % 12;
   }
 }
 
-abstract class ScaleInKey extends Scale {
+class ScaleInKey extends Scale {
 
   key: Key;
   name: string;
   formula: number[];
   noteNames: Map<number, string>;
+  degreeNames: Map<number, string>;
 
   constructor(k: Key, pattern: number[], modeName: string) {
     super();
@@ -62,6 +84,9 @@ abstract class ScaleInKey extends Scale {
     const mods = pattern.map((v, i) => v + keyValue - refValues[i]);
     this.formula = pattern.map(v => mod12(v + keyValue));
     this.noteNames = new Map(refNotes.map((base, i) => [this.formula[i], noteName(base, mods[i])]));
+    this.degreeNames = new Map(
+      pattern.map((v, i) => [this.formula[i], degreeName(i + 1, v - allValues[i])])
+    );
     this.name = noteName(allNotes[k.letter - 1], k.accidental) + ' ' + modeName + ' scale';
 
     console.log(k);
@@ -81,20 +106,12 @@ abstract class ScaleInKey extends Scale {
     return this.noteNames.get(mod12(v));
   }
 
+  degreeName(v: number): string {
+    return this.degreeNames.get(mod12(v));
+  }
+
   isRoot(v: number): boolean {
     return mod12(this.key.value()) === mod12(v);
   }
 
-}
-
-class MajorScaleInKey extends ScaleInKey {
-  constructor(k: Key) {
-    super(k, [0, 2, 4, 5, 7, 9, 11], 'major');
-  }
-}
-
-class MinorScaleInKey extends ScaleInKey {
-  constructor(k: Key) {
-    super(k, [0, 2, 3, 5, 7, 8, 10], 'minor');
-  }
 }
