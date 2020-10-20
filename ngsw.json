@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1603183418149,
+  "timestamp": 1603183811960,
   "index": "/fretboard/index.html",
   "assetGroups": [
     {
@@ -42,7 +42,7 @@
     "/fretboard/favicon.ico": "659a5440c23065aad4194cfc4aae3d1b5798b373",
     "/fretboard/index.html": "970282e2d67b75c4e305e6160a748b358ceae4c6",
     "/fretboard/main.70a49117f5cfc6ff33c5.js": "bb1d807b1a62de681f355ac156ac6dd9f799abf6",
-    "/fretboard/manifest.webmanifest": "382d0742bf6572b80c5804f27e53421bbe73893e",
+    "/fretboard/manifest.webmanifest": "470cfe227d75156fbba892bec2ebdce893d7b0cf",
     "/fretboard/polyfills.0886a72defc1067f2b2c.js": "dbc502f030c7bb83c7caa1feee7aff990831f7d9",
     "/fretboard/runtime.acf0dec4155e77772545.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
     "/fretboard/styles.9cd4f5dcb2e7ccf5057f.css": "f2b86def6a2a0c7327948412b461f618d4094051"
