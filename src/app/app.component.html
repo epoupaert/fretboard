@@ -1,6 +1,6 @@
 <div class="container">
   <h1>{{noteGroup.getName()}}
-    <div class="btn-group float-right mt-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
+    <div class="btn-group float-right mr-2 mt-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
     [ngModel]="boardValue"
     (ngModelChange)="boardValue=$event;resetBoard();"
     >
@@ -8,6 +8,16 @@
         *ngFor="let b of boards"
         ngbButtonLabel class="btn-primary">
         <input ngbButton type="radio" [value]="b.value">{{b.label}}
+      </label>
+    </div>
+    <div class="btn-group float-right mr-2 mt-2 btn-group-toggle" ngbRadioGroup name="radioBasic"
+    [ngModel]="drawMode"
+    (ngModelChange)="drawMode=$event;redraw();"
+    >
+      <label
+        *ngFor = "let m of drawModes"
+        ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="m.value">{{m.label}}
       </label>
     </div>
   </h1>

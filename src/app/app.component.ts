@@ -52,6 +52,13 @@ export class AppComponent implements OnInit {
     ['triad', () => Chord.in(this.key, this.chordType) ]
   ]);
 
+  drawMode = 'name';
+  drawModes = [
+    { value: 'name', label: 'Note name' },
+    { value: 'degree', label: 'Note degree' },
+  ];
+
+
   onKindChanged(): void {
     this.redraw();
   }
@@ -72,8 +79,14 @@ export class AppComponent implements OnInit {
 
   redraw(): void {
     this.noteGroup = this.makeNoteGroup();
-    // drawNotesWithNames(this.board, this.noteGroup);
-    drawNotesWithDegrees(this.board, this.noteGroup);
+    switch (this.drawMode) {
+      case 'name':
+        drawNotesWithNames(this.board, this.noteGroup);
+        break;
+      case 'degree':
+        drawNotesWithDegrees(this.board, this.noteGroup);
+        break;
+    }
   }
 
   resetBoard(): void {
