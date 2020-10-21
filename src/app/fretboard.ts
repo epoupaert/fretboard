@@ -1,5 +1,5 @@
 import { SVG, Text, Circle, Dom, Container } from '@svgdotjs/svg.js';
-import { Board, BoardNote } from './board';
+import { Board, BoardNote, Color } from './board';
 import { Scale } from './scales';
 
 const defaultScale = Scale.defaultScale();
@@ -104,6 +104,13 @@ abstract class Fretboard extends Board {
   }
 }
 
+const colors = new Map([
+  [ Color.BLACK, { stroke: '#000000', fill: '#cccccc' } ],
+  [ Color.RED,   { stroke: '#990000', fill: '#ff9999' } ],
+  [ Color.BLUE,   { stroke: '#000099', fill: '#9999ff' } ],
+  [ Color.GREEN,   { stroke: '#009900', fill: '#99ff99' } ],
+]);
+
 class FretboardNote implements BoardNote {
   value: number;
   locator: () => Dom;
@@ -124,15 +131,18 @@ class FretboardNote implements BoardNote {
     text.plain(name);
   }
 
-  setColor(highlight: boolean): void {
-    const circle = this.getNoteGroup().first() as Circle;
+  setHighlight(highlight: boolean): void {
     if (highlight) {
-      circle.stroke({ color: '#990000', width: 0.5 });
-      circle.fill({ color: '#ff9999' });
+      this.setColor(Color.RED);
     } else {
-      circle.stroke({ color: '#000000', width: 0.5 });
-      circle.fill({ color: '#cccccc' });
+      this.setColor(Color.BLACK);
     }
+  }
+
+  setColor(color: Color): void {
+    const circle = this.getNoteGroup().first() as Circle;
+    circle.stroke({ color: colors.get(color).stroke, width: 0.5 });
+    circle.fill({ color: colors.get(color).fill });
   }
 
   show(): void {

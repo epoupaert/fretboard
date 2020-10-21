@@ -1,5 +1,7 @@
 import { Scale } from './scales';
 
+export enum Color { BLACK, RED, BLUE, GREEN }
+
 export abstract class Board {
   abstract notes(): Iterable<BoardNote>;
   abstract init(selector: string): void;
@@ -11,5 +13,6 @@ export interface BoardNote {
   show(): void;
   hide(): void;
   setName(name: string): void;
-  setColor(highlighted: boolean): void;
+  setHighlight(highlight: boolean): void;
+  setColor(color: Color): void;
 }

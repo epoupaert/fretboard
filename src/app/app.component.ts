@@ -5,7 +5,7 @@ import { Key, Letter, Accidental } from './keys';
 import { Scale, Mode } from './scales';
 import { Chord, ChordType } from './chord';
 import { GuitarFretboard, UkuleleFretboard } from './fretboard';
-import { drawNotesWithNames, drawNotesWithDegrees } from './visualizer';
+import { drawNotesWithDegreesAndColors, drawNotesWithNamesAndColorDegrees } from './visualizer';
 
 const makeGuitare = () => new GuitarFretboard();
 
@@ -81,10 +81,10 @@ export class AppComponent implements OnInit {
     this.noteGroup = this.makeNoteGroup();
     switch (this.drawMode) {
       case 'name':
-        drawNotesWithNames(this.board, this.noteGroup);
+        drawNotesWithNamesAndColorDegrees(this.board, this.noteGroup);
         break;
       case 'degree':
-        drawNotesWithDegrees(this.board, this.noteGroup);
+        drawNotesWithDegreesAndColors(this.board, this.noteGroup);
         break;
     }
   }
